@@ -72,7 +72,20 @@ ABCD_DHP_regio<- function (data, type){
       sim_ABCD_DHP <-sim_ABCD_DHP %>%
         mutate(DER=NA)
     }
-
+    if(!"F2" %in% names(sim_ABCD_DHP) ){
+      sim_ABCD_DHP<-sim_ABCD_DHP %>% mutate(F2 = NA)
+    }
+    if(!"F3" %in% names(sim_ABCD_DHP)){
+      sim_ABCD_DHP <-sim_ABCD_DHP %>%
+        mutate(F3=NA)
+    }
+    if(!"F4" %in% names(sim_ABCD_DHP) ){
+      sim_ABCD_DHP<-sim_ABCD_DHP %>% mutate(F4 = NA)
+    }
+    if(!"P" %in% names(sim_ABCD_DHP)){
+      sim_ABCD_DHP <-sim_ABCD_DHP %>%
+        mutate(P=NA)
+    }
 
   }else if(type == "DHP"){      ######## DHP ##########
 
@@ -136,6 +149,20 @@ ABCD_DHP_regio<- function (data, type){
     if(!"DER" %in% names(sim_ABCD_DHP)){
       sim_ABCD_DHP <-sim_ABCD_DHP %>%
         mutate(DER=NA)
+    }
+    if(!"F2" %in% names(sim_ABCD_DHP) ){
+      sim_ABCD_DHP<-sim_ABCD_DHP %>% mutate(F2 = NA)
+    }
+    if(!"F3" %in% names(sim_ABCD_DHP)){
+      sim_ABCD_DHP <-sim_ABCD_DHP %>%
+        mutate(F3=NA)
+    }
+    if(!"F4" %in% names(sim_ABCD_DHP) ){
+      sim_ABCD_DHP<-sim_ABCD_DHP %>% mutate(F4 = NA)
+    }
+    if(!"P" %in% names(sim_ABCD_DHP)){
+      sim_ABCD_DHP <-sim_ABCD_DHP %>%
+        mutate(P=NA)
     }
   }
 

@@ -78,6 +78,26 @@ ABCD_DHP215<- function (data, type){
       Sim_biol_2015 <-Sim_biol_2015 %>%
         mutate(DER=NA)
     }
+
+    if(!"F2" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+
+    if(!"F3" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+    if(!"F4" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+    if(!"P" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+
+
   }else if (type == "1234"){
 
 
@@ -167,6 +187,25 @@ ABCD_DHP215<- function (data, type){
       Sim_biol_2015 <-Sim_biol_2015 %>%
         mutate(DER=NA)
     }
+
+    if(!"F2" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+
+    if(!"F3" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+    if(!"F4" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+    if(!"P" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+
   }else if (type == "MSCR"){
 
 
@@ -241,6 +280,25 @@ ABCD_DHP215<- function (data, type){
         mutate(DER=NA)
     }
 
+    if(!"F2" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+
+    if(!"F3" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+    if(!"F4" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+    if(!"P" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(DER=NA)
+    }
+
+
   }else if (type == "DHP2015"){
 
     Para<-ParaPetroFinal
@@ -291,12 +349,31 @@ ABCD_DHP215<- function (data, type){
 
     if(!"F1" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-      mutate(F1=NA)
+        mutate(F1=NA)
     }
     if(!"DER" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
         mutate(DER=NA)
     }
+
+    if(!"F2" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(F2=NA)
+    }
+
+    if(!"F3" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(F3=NA)
+    }
+    if(!"F4" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(F4=NA)
+    }
+    if(!"P" %in% names(Sim_biol_2015)){
+      Sim_biol_2015 <-Sim_biol_2015 %>%
+        mutate(P=NA)
+    }
+
   }
 
 
