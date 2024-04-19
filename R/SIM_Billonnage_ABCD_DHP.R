@@ -16,7 +16,8 @@ SIMBillonnageABCD_DHP<- function (data , type){
 
   select=dplyr::select
 
-  data<- data %>% filter(DHPcm >23)
+  data<- data %>% filter(DHPcm >23) %>%
+    mutate(type =NA)
                           ##### ABCD#####
   if(!"eco" %in% colnames(data)){
     data <-ConvertisseurEco(data)
@@ -125,8 +126,11 @@ SIMBillonnageABCD_DHP<- function (data , type){
   }
 
 
+  final<-final %>% relocate(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
+         Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Stm2ha,Sup_PE,type,DER,F1,F2,F3,F4,P)
 
-  return (final )
+
+  return (final)
 
 
 }

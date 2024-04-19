@@ -65,9 +65,9 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "ABCD_P") %>%
       select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE) %>%
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){
@@ -81,20 +81,20 @@ ABCD_DHP215<- function (data, type){
 
     if(!"F2" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F2=NA)
     }
 
     if(!"F3" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F3=NA)
     }
     if(!"F4" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F4=NA)
     }
     if(!"P" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(P=NA)
     }
 
 
@@ -174,9 +174,9 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "1234_P") %>%
       select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE) %>%
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){
@@ -190,20 +190,20 @@ ABCD_DHP215<- function (data, type){
 
     if(!"F2" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F2=NA)
     }
 
     if(!"F3" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F3=NA)
     }
     if(!"F4" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F4=NA)
     }
     if(!"P" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(P=NA)
     }
 
   }else if (type == "MSCR"){
@@ -266,9 +266,9 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol)%>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "MSCR_P") %>%
       select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE) %>%
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){
@@ -282,20 +282,20 @@ ABCD_DHP215<- function (data, type){
 
     if(!"F2" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F2=NA)
     }
 
     if(!"F3" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F3=NA)
     }
     if(!"F4" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(F4=NA)
     }
     if(!"P" %in% names(Sim_biol_2015)){
       Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
+        mutate(P=NA)
     }
 
 
@@ -342,9 +342,9 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "DHP_P") %>%
       select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE) %>%
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){

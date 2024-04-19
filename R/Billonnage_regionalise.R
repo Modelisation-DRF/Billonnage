@@ -60,9 +60,9 @@ ABCD_DHP_regio<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "ABCD_R") %>%
       select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE) %>%
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(sim_ABCD_DHP) ){
@@ -86,6 +86,9 @@ ABCD_DHP_regio<- function (data, type){
       sim_ABCD_DHP <-sim_ABCD_DHP %>%
         mutate(P=NA)
     }
+
+
+
 
   }else if(type == "DHP"){      ######## DHP ##########
 
@@ -137,9 +140,9 @@ ABCD_DHP_regio<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "DHP_R") %>%
       select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE) %>%
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
       # select(Espece, DHPcm, eco, QualiteABCD, Produit, Essence_billon,VolBillonM3 ) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
