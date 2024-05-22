@@ -27,7 +27,7 @@ SIMBillonnageABCD_DHP<- function (data , type){
     type <- ifelse(type == "ABCD", "DHP", "DHP2015")
   }
 
-
+  final <- data.frame()
   if(type %in% c("ABCD","DHP")){
 
     if(type == "ABCD"){
@@ -126,8 +126,8 @@ SIMBillonnageABCD_DHP<- function (data , type){
   }
 
 
-  final<-final %>% relocate(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-         Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Stm2ha,Sup_PE,type,DER,F1,F2,F3,F4,P)
+  final<-final %>% select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
+         Etat,DHPcm,MSCR,ABCD,Vigueur,hauteur_pred,vol_dm3,Stm2ha,Sup_PE,type,DER,F1,F2,F3,F4,P)
 
 
   return (final)

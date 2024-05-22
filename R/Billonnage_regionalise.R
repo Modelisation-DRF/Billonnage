@@ -60,9 +60,19 @@ ABCD_DHP_regio<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "ABCD_R") %>%
-      select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "ABCD_R",
+              Vigueur = case_when(
+                vigu0 == "ViG" & prod0 == "sciage" ~ 1,
+                vigu0 == "ViG" & prod0 == "pate" ~ 2,
+                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm>=23.1 ~ 3,
+                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm<23.1 ~ 4,
+                vigu0 == "NONVIG" & prod0 == "pate" ~ 4,
+                vigu0 == "ViG" & prod0 == "resineux" ~ 5,
+                vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
+                TRUE ~ NA_integer_
+              ),ABCD = QualiteABCD ) %>%
+      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(sim_ABCD_DHP) ){
@@ -140,9 +150,19 @@ ABCD_DHP_regio<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "DHP_R") %>%
-      select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "DHP_R",
+              Vigueur = case_when(
+                vigu0 == "ViG" & prod0 == "sciage" ~ 1,
+                vigu0 == "ViG" & prod0 == "pate" ~ 2,
+                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm>=23.1 ~ 3,
+                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm<23.1 ~ 4,
+                vigu0 == "NONVIG" & prod0 == "pate" ~ 4,
+                vigu0 == "ViG" & prod0 == "resineux" ~ 5,
+                vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
+                TRUE ~ NA_integer_
+              )) %>%
+      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
+             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
       # select(Espece, DHPcm, eco, QualiteABCD, Produit, Essence_billon,VolBillonM3 ) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
