@@ -62,17 +62,7 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "ABCD_P",
-              Vigueur = case_when(
-                vigu0 == "ViG" & prod0 == "sciage" ~ 1,
-                vigu0 == "ViG" & prod0 == "pate" ~ 2,
-                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm>=23.1 ~ 3,
-                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm<23.1 ~ 4,
-                vigu0 == "NONVIG" & prod0 == "pate" ~ 4,
-                vigu0 == "ViG" & prod0 == "resineux" ~ 5,
-                vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
-                TRUE ~ NA_integer_
-              )) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "ABCD_P") %>%
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
@@ -180,17 +170,7 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "1234_P",
-              Vigueur = case_when(
-                Vig1234 == "ViG" & Prod1234 == "sciage" ~ 1,
-                Vig1234 == "ViG" & Prod1234 == "pate" ~ 2,
-                Vig1234 == "NONVIG" & Prod1234 == "sciage" & DHPcm>=23.1 ~ 3,
-                Vig1234 == "NONVIG" & Prod1234 == "sciage" & DHPcm<23.1 ~ 4,
-                Vig1234 == "NONVIG" & Prod1234 == "pate" ~ 4,
-                Vig1234 == "ViG" & Prod1234 == "resineux" ~ 5,
-                Vig1234 == "NONVIG" & Prod1234 == "resineux" ~ 6,
-                TRUE ~ NA_integer_
-              )) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "1234_P") %>%
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
@@ -281,17 +261,7 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol)%>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "MSCR_P",
-              Vigueur = case_when(
-                vigu0 == "ViG" & prod0 == "sciage" ~ 1,
-                vigu0 == "ViG" & prod0 == "pate" ~ 2,
-                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm>=23.1 ~ 3,
-                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm<23.1 ~ 4,
-                vigu0 == "NONVIG" & prod0 == "pate" ~ 4,
-                vigu0 == "ViG" & prod0 == "resineux" ~ 5,
-                vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
-                TRUE ~ NA_integer_
-              )) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "MSCR_P") %>%
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
@@ -366,17 +336,7 @@ ABCD_DHP215<- function (data, type){
              Pres=exp(BetaPres)/(1+exp(BetaPres)),
              Vol=exp(BetaVol+0.5*Cov),
              VolBillonM3=Pres*Vol) %>%
-      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "DHP_P",
-              Vigueur = case_when(
-                vigu0 == "ViG" & prod0 == "sciage" ~ 1,
-                vigu0 == "ViG" & prod0 == "pate" ~ 2,
-                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm>=23.1 ~ 3,
-                vigu0 == "NONVIG" & prod0 == "sciage" & DHPcm<23.1 ~ 4,
-                vigu0 == "NONVIG" & prod0 == "pate" ~ 4,
-                vigu0 == "ViG" & prod0 == "resineux" ~ 5,
-                vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
-                TRUE ~ NA_integer_
-              )) %>%
+      mutate (Stm2ha=pi*(DHPcm/200)^2,type = "DHP_P") %>%
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
