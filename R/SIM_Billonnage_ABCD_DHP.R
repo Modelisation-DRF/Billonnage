@@ -12,12 +12,22 @@
 #' @examples
 #'
 
-SIMBillonnageABCD_DHP<- function (data , type){
+SIMBillonnageABCD_DHP<- function (Data , type){
 
   select=dplyr::select
 
-  data<- data %>% filter(DHPcm >23) %>%
+  Data<- Data %>% filter(DHPcm >23) %>%
     mutate(type =NA)
+
+  data<- Data %>% filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX") )
+
+  if (nrow(data) == 0) {
+
+    Data<- Data %>% mutate(erreur = "Code d'essence à l'extérieur de la plage de valeurs possibles pour billongae ")
+
+    return(Data)
+  }
+
                           ##### ABCD#####
   if(!"eco" %in% colnames(data)){
     data <-ConvertisseurEco(data)
@@ -26,6 +36,9 @@ SIMBillonnageABCD_DHP<- function (data , type){
   if (type %in% c("ABCD", "ABCD2015") && all(is.na(data$ABCD))) {
     type <- ifelse(type == "ABCD", "DHP", "DHP2015")
   }
+
+
+
 
   final <- data.frame()
   if(type %in% c("ABCD","DHP")){
@@ -126,8 +139,7 @@ SIMBillonnageABCD_DHP<- function (data , type){
   }
 
 
-  final<-final %>% select(Annee,Residuel,ArbreID,NoArbre,Iter,Placette,Nombre,GrEspece,Espece,
-         Etat,DHPcm,MSCR,ABCD,Vigueur,hauteur_pred,vol_dm3,Stm2ha,Sup_PE,type,DER,F1,F2,F3,F4,P)
+  final<-final %>% select(DER,F1,F2,F3,F4,P,bilonID,type)
 
 
   return (final)

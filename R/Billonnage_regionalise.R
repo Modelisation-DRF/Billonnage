@@ -71,8 +71,7 @@ ABCD_DHP_regio<- function (data, type){
                 vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
                 TRUE ~ NA_integer_
               ),ABCD = QualiteABCD ) %>%
-      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
+      select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(sim_ABCD_DHP) ){
@@ -161,8 +160,7 @@ ABCD_DHP_regio<- function (data, type){
                 vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
                 TRUE ~ NA_integer_
               )) %>%
-      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
+      select(Produit,VolBillonM3,bilonID,type) %>%
       # select(Espece, DHPcm, eco, QualiteABCD, Produit, Essence_billon,VolBillonM3 ) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 

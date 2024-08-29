@@ -1,7 +1,4 @@
 
-
-
-
 ABCD_DHP215<- function (data, type){
   select=dplyr::select
 
@@ -76,8 +73,7 @@ ABCD_DHP215<- function (data, type){
                 vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
                 TRUE ~ NA_integer_
               )) %>%
-      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
+      select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){
@@ -195,8 +191,7 @@ ABCD_DHP215<- function (data, type){
                 Vig1234 == "NONVIG" & Prod1234 == "resineux" ~ 6,
                 TRUE ~ NA_integer_
               )) %>%
-      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
+      select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){
@@ -297,8 +292,7 @@ ABCD_DHP215<- function (data, type){
                 vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
                 TRUE ~ NA_integer_
               )) %>%
-      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
+      select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){
@@ -383,8 +377,7 @@ ABCD_DHP215<- function (data, type){
                 vigu0 == "NONVIG" & prod0 == "resineux" ~ 6,
                 TRUE ~ NA_integer_
               )) %>%
-      select(Annee,Residuel,ArbreID,Iter,NoArbre,Placette,Nombre,GrEspece,Espece,
-             Etat,DHPcm,MSCR,hauteur_pred,vol_dm3,Produit,VolBillonM3,Stm2ha,Sup_PE,type,ABCD,Vigueur) %>%
+      select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
     if(!"F1" %in% names(Sim_biol_2015)){
