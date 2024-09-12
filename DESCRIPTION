@@ -1,14 +1,20 @@
 Package: Billonage
 Type: Package
-Title: Test
+Title: Équations de billonnage PETRO
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: c(
+    person("Junior", "Peumi", email = "junior.peumi@mrnf.gouv.qc.ca", role = c("aut", "cre")),
+    person("Isabelle", "Auger", email = "isabelle.auger@mrnf.gouv.qc.ca", role = c("ctb")))
+Maintainer: Isabelle Auger <isabelle.auger@mrnf.gouv.qc.ca>
+Description: Équations pour estimer le volume des produits PETRO de 6 essences de feuillus.
+    Équations PETRO 2015 ou équations PETRO régionalisées 2024.
+License: LGPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: dplyr,
          tidyverse,
          R (>= 2.10)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2

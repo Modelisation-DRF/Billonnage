@@ -1,7 +1,28 @@
-
+#' Fonction prévoit la répartition par produits des arbres de 6 essences feuillus à l'aide des
+#' équations de Petro 2015.
+#'
+#' @param data Un dataframe qui contient en ligne les arbres dont on veut prévoir
+#'             les rendements en produit à l'aide du module de billonnage Petro 2015.
+#'             Le dataframe doit contenir une colonne bilonID qui numérote individuellement chacune des lignes.
+#'             Doit contenir aussi les colonnes DHPcm et Espece, et optionnelement MSCR ou ABCD ou vigu0 et prod0.
+#'             Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX", les autres seront supprimés
+#'             Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront supprimés
+#' @param type "ABCD2015" pour utiliser les équations basées sur ABCD
+#'             "1234" pour utiliser les équations basées sur 1234
+#'             "MSCR" pour utiliser les équations basées sur MSCR
+#'             "DHP2015" pour utiliser les équations basées seulement sur le DHP
+#' @return Retourne un dataframe avec l'estimation du volume par classe de produit
+#'          pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX" de 23 cm,
+#'          colonnes: bilonID, type, F1, F2, F3, F4, P, DER
+#'
 ABCD_DHP215<- function (data, type){
   select=dplyr::select
 
+  # filtrer les dhp
+  data <- data %>% filter(DHPcm>23)
+  #mutate(Espece=ifelse(Espece %in% c("CHR"), "CHX", Espece)) %>%
+  #filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
+  # ajouter ici le filter des 6 essences et ajout de mettre CHR et autres chenes dans CHX ou gérer les regroupement dans la fct SIMBillonnageABCD_DHP
 
   if (type == "ABCD2015"){
 
@@ -22,7 +43,7 @@ ABCD_DHP215<- function (data, type){
       pivot_wider(names_from = Effet, values_from  = betaPres, names_prefix = "Pres") %>%
       full_join(Vol_Billon, by=c("Essence_billon","Produit", "QualiteABCD")) %>%
       mutate(Presdhpcm2_classepetro=ifelse(is.na(Presdhpcm2_classepetro)==TRUE,0,Presdhpcm2_classepetro))
-    names(Pres_Billon)
+    #names(Pres_Billon)
 
     par_qual <- Pres_Billon %>%
       filter(!is.na(QualiteABCD)) %>%
@@ -120,7 +141,7 @@ ABCD_DHP215<- function (data, type){
                 ~ ifelse(is.na(.) | . == "NULL", 0, .)) %>%   #ajout
       full_join(Vol_Billon, by=c("Essence_billon","Produit", "Vigueur1234"))
 
-    names(Pres_Billon)
+    #names(Pres_Billon)
 
     par_vig <- Pres_Billon %>%
       filter(!is.na(Vigueur1234) & Vigueur1234 %in% c("vigour", "nonvig")) %>%
@@ -225,7 +246,7 @@ ABCD_DHP215<- function (data, type){
       full_join(Vol_Billon, by=c("Essence_billon","Produit", "PrioriteMSCR")) %>%
       mutate(Presdhpcm_classepetro=ifelse(is.na(Presdhpcm_classepetro)==TRUE,0,Presdhpcm_classepetro),
              Presdhpcm2_classepetro=ifelse(is.na(Presdhpcm2_classepetro)==TRUE,0,Presdhpcm2_classepetro))
-    names(Pres_Billon)
+    #names(Pres_Billon)
 
     par_qual <- Pres_Billon %>%
       filter(!is.na(PrioriteMSCR)) %>%
@@ -247,7 +268,7 @@ ABCD_DHP215<- function (data, type){
       left_join(ListeCorresPetro, by = c("Espece"="Essence_billon", "MSCR"="VAL_INIT"))
 
     Sim_biol_2015 <- data %>%
-      mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece),PrioriteMSCR=VAL_FIN,F1=NA) %>% #ajout
+      mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece),PrioriteMSCR=VAL_FIN,F1=NA) %>% #ajout, IA: mais il y a un filtre dans la fct de base qui filtre CHX, il n'y aura donc jamais de CHR
       filter(Essence_billon %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
       left_join(par_qual, by=c("Essence_billon", "PrioriteMSCR"), relationship="many-to-many") %>%
       left_join(par_num, by=c("Essence_billon", "Produit"), relationship="many-to-many") %>%
@@ -325,7 +346,7 @@ ABCD_DHP215<- function (data, type){
     ##########################################################
 
     Sim_biol_2015<-data %>%
-      mutate(Essence_billon=ifelse(is.na(Espece)==TRUE, GrEspece, Espece),F1=NA) %>%
+      mutate(Essence_billon=ifelse(is.na(Espece)==TRUE, GrEspece, Espece),F1=NA) %>% # pour les recrues? pourquoi il n'y a pas ça dans les cas ABCD, MSCR et 1234? est-ce que GrEspece sera dans tous les modèles où Billonage sera utilisé
       filter(Essence_billon %in% c("BOJ","ERS","BOP","ERR","CHX","HEG")) %>%
       left_join(Pres_Billon, by=c("Essence_billon"), relationship="many-to-many") %>%
       inner_join(CovParms, by=c("Essence_billon", "Produit")) %>%
