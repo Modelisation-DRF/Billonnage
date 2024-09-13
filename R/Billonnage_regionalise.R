@@ -1,8 +1,29 @@
-
+#' Fonction prévoit la répartition par produits des arbres ERS et BOJ à l'aide des nouvelles
+#' équations de Petro régionalisés issu des travaux du CFFM de Filip Havreljuk.
+#'
+#' @param data Un dataframe qui contient en ligne les arbres dont on veut prévoir
+#'             les rendements en produit à l'aide du module de billonnage Petro
+#'             régionalisé.
+#'             Le dataframe doit contenir une colonne bilonID qui numérote individuellement chacune des lignes
+#'             et une colonne, Espece, colonne eco qui contient le groupe de régions écologiques,
+#'             une colonne DHPcm et optionnelement une colonne ABCD.
+#'             Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", les autres seront supprimés
+#'             Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront supprimés
+#'             Les équations ne doivent êtres appliquées que sur les régions écologiques:
+#'            "1a", "2a", "2b", "2c", "3a", "3b", "3c", "3d", "4a", "4b", "4c", "4d", "4e", "4f", "4g","4h", "DU", "SV"
+#' @param type "ABCD" pour utiliser les équations basées sur ABCD
+#'             "DHP" pour utiliser les équations basées seulement sur le DHP
+#' @return Retourne un dataframe avec l'estimation du volume par classe de produit
+#'          pour chacun des arbres BOJ et ERS de 23 cm
+#'          colonnes: bilonID, type, F1, F2, F3, F4, P, DER
+#'
 
 ABCD_DHP_regio<- function (data, type){
 
   select=dplyr::select
+
+  # filtrer les dhp et les essences
+  data <- data %>% filter(DHPcm>23) %>% filter(Espece %in% c("ERS", "BOJ"))
 
   if (type == "ABCD"){
 
@@ -42,7 +63,7 @@ ABCD_DHP_regio<- function (data, type){
 
     sim_ABCD_DHP <- data %>%
       mutate(Essence_billon=Espece) %>% #ajout
-      filter(Essence_billon %in% c("ERS", "BOJ")) %>%
+      #filter(Essence_billon %in% c("ERS", "BOJ")) %>%
       rename(QualiteABCD=ABCD) %>%
       left_join(par_eco, by=c("Essence_billon", "eco"), relationship="many-to-many") %>%
       left_join(par_qual, by=c("Essence_billon", "QualiteABCD", "Produit"), relationship="many-to-many") %>%
@@ -124,7 +145,7 @@ ABCD_DHP_regio<- function (data, type){
 
     sim_ABCD_DHP <- data %>%
       mutate(Essence_billon=Espece) %>% #ajout
-      filter(Essence_billon %in% c("ERS", "BOJ")) %>%
+      #filter(Essence_billon %in% c("ERS", "BOJ")) %>%
       left_join(par_eco, by=c("Essence_billon", "eco"), relationship = "many-to-many") %>%
       #left_join(par_qual, by=c("Essence_billon", "CLASSE_DE_"="QualiteABCD", "Produit")) %>%
       left_join(par_num, by=c("Essence_billon", "Produit")) %>%

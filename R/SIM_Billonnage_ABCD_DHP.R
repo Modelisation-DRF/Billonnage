@@ -1,15 +1,27 @@
-#' Fonction prévoit la répartition par produits des arbres feuillus à l'aide des nouvelles
-#' équation de Petro régionalisés issu des travaux du CFFM de Filip Havreljuk.
+#' Fonction prévoit la répartition par produits des arbres de 6 essences feuillus à l'aide des nouvelles
+#' équations de Petro régionalisés ou celles de 2015.
 #'
-#' @param Data UUn dataframe qui contient en ligne les arbres dont on veut prévoir
-#'             les rendements en produit à l'aide du module de billonnage Petro
-#'             régionalisé.
-#' @param ligne une valeur binaire égale à 1 lorsque l'on désir avoir la sortie
-#'              qui contient une ligne par produit ou 0 lorsque l'on désir avoir la sortie
-#'              qui contient une colone par produit
+#' @param Data Un dataframe qui contient en ligne les arbres dont on veut prévoir
+#'             les rendements en produit Petro.
+#'             Le dataframe doit contenir une colonne bilonID qui numérote individuellement chacune des lignes.
+#'             Doit aussi contenir les colonnes Espece et DHPcm
+#'             Pour type=DHP et type=ABCD, il faut la colonne eco ou reg_eco
+#'             Pour type=ABCD ou ABCD2015, il faut aussi une colonne ABCD
+#'             Pour type=MSCR, il faut aussi une colonne MSCR
+#'             Pour type=1234, il faut aussi les colonnes prod0 et vigu0
+#'             Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront supprimés
+#'             Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX", les autres seront supprimés
+#' @param type "DHP" pour utiliser les équations régionalisées basées seulement sur le DHP
+#'             "ABCD" pour utiliser les équations régionalisées basées sur ABCD
+#'             "1234" pour utiliser les équations de 2015 basées sur 1234
+#'             "MSCR" pour utiliser les équations de 2015 basées sur MSCR
+#'             "DHP2015" pour utiliser les équations de 2015 basées seulement sur le DHP
+#'             "ABCD2015" pour utiliser les équations de 2015 basées sur ABCD
 #' @return Retourne un dataframe avec l'estimation du volume par classe de produit
-#'          pour chacun des arbres feuillus.
+#'          pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX" pour Petro2015 et ERS/BOJ pour Petro2024
 #' @examples
+#' vol_billon <- SIMBillonnageABCD_DHP(Data=liste_arbres_ex, type="ABCD")
+#' @export
 #'
 
 SIMBillonnageABCD_DHP<- function (Data , type){
@@ -19,11 +31,11 @@ SIMBillonnageABCD_DHP<- function (Data , type){
   Data<- Data %>% filter(DHPcm >23) %>%
     mutate(type =NA)
 
-  data<- Data %>% filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX") )
+  data<- Data %>% filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX") ) # CHX? on veut mettre ça ici? plutôt faire un regoupement?
 
   if (nrow(data) == 0) {
 
-    Data<- Data %>% mutate(erreur = "Code d'essence à l'extérieur de la plage de valeurs possibles pour billongae ")
+    Data<- Data %>% mutate(erreur = "Code d'essence \uE0 l'ext\uE9rieur de la plage de valeurs possibles pour billonage")
 
     return(Data)
   }
