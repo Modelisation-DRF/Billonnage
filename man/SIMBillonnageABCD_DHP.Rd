@@ -17,7 +17,7 @@ Pour type=ABCD ou ABCD2015, il faut aussi une colonne ABCD
 Pour type=MSCR, il faut aussi une colonne MSCR
 Pour type=1234, il faut aussi les colonnes prod0 et vigu0
 Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront supprimés
-Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX", les autres seront supprimés}
+Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR", les autres seront supprimés}
 
 \item{type}{"DHP" pour utiliser les équations régionalisées basées seulement sur le DHP
 "ABCD" pour utiliser les équations régionalisées basées sur ABCD
@@ -28,7 +28,7 @@ Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG
 }
 \value{
 Retourne un dataframe avec l'estimation du volume par classe de produit
-         pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX" pour Petro2015 et ERS/BOJ pour Petro2024
+         pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR" pour Petro2015 et ERS/BOJ pour Petro2024
 }
 \description{
 Fonction prévoit la répartition par produits des arbres de 6 essences feuillus à l'aide des nouvelles

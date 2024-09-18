@@ -5,28 +5,29 @@
 #'             les rendements en produit à l'aide du module de billonnage Petro 2015.
 #'             Le dataframe doit contenir une colonne bilonID qui numérote individuellement chacune des lignes.
 #'             Doit contenir aussi les colonnes DHPcm et Espece, et optionnelement MSCR ou ABCD ou vigu0 et prod0.
-#'             Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX", les autres seront supprimés
+#'             Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR", les autres seront supprimés
 #'             Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront supprimés
 #' @param type "ABCD2015" pour utiliser les équations basées sur ABCD
 #'             "1234" pour utiliser les équations basées sur 1234
 #'             "MSCR" pour utiliser les équations basées sur MSCR
 #'             "DHP2015" pour utiliser les équations basées seulement sur le DHP
 #' @return Retourne un dataframe avec l'estimation du volume par classe de produit
-#'          pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX" de 23 cm,
+#'          pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR" de 23 cm,
 #'          colonnes: bilonID, type, F1, F2, F3, F4, P, DER
 #'
 ABCD_DHP215<- function (data, type){
   select=dplyr::select
 
-  # filtrer les dhp
-  data <- data %>% filter(DHPcm>23)
-  #mutate(Espece=ifelse(Espece %in% c("CHR"), "CHX", Espece)) %>%
-  #filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
-  # ajouter ici le filter des 6 essences et ajout de mettre CHR et autres chenes dans CHX ou gérer les regroupement dans la fct SIMBillonnageABCD_DHP
+  # filtrer les dhp, et les essences
+  # à l'origine, les équations de petro ont été calibrées sur CHR, pas un groupe de chenes, donc on filtre CHR
+  data <- data %>% filter(DHPcm>23) %>%  filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHR")) %>%
+    mutate(Essence_billon=Espece, F1=NA)
+
+
 
   if (type == "ABCD2015"){
 
-      CovParaPetro_abcd<-CovParaPetro_abcd %>%  filter(Cov>0)
+    CovParaPetro_abcd<-CovParaPetro_abcd %>%  filter(Cov>0)
 
     Vol_Billon<-ParaPetro_abcd %>%
       filter(Module=="Vol") %>%
@@ -67,8 +68,8 @@ ABCD_DHP215<- function (data, type){
       left_join(ListeCorresPetro, by = c("Espece"="Essence_billon", "ABCD"="VAL_INIT"))
 
     Sim_biol_2015 <- data %>%
-      mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece), QualiteABCD=VAL_FIN,F1=NA) %>% #ajout
-      filter(Essence_billon %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
+      #mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece), QualiteABCD=VAL_FIN,F1=NA) %>% #ajout
+      mutate(QualiteABCD=VAL_FIN) %>%
       #left_join(par_eco, by=c("Essence_billon"), relationship="many-to-many") %>%
       left_join(par_qual, by=c("Essence_billon", "QualiteABCD"), relationship="many-to-many") %>%
       left_join(par_num, by=c("Essence_billon", "Produit"), relationship="many-to-many") %>%
@@ -87,39 +88,10 @@ ABCD_DHP215<- function (data, type){
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
-    if(!"F1" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F1=NA)
-    }
-    if(!"DER" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
-    }
-
-    if(!"F2" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F2=NA)
-    }
-
-    if(!"F3" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F3=NA)
-    }
-    if(!"F4" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F4=NA)
-    }
-    if(!"P" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(P=NA)
-    }
-
 
   }else if (type == "1234"){
 
-
-
-      CovParaPetro_1234<-CovParaPetro_1234 %>%
+    CovParaPetro_1234<-CovParaPetro_1234 %>%
         filter(Cov>0)
 
     Vol_Billon <-ParaPetro_1234_ %>%
@@ -170,8 +142,8 @@ ABCD_DHP215<- function (data, type){
 
 
     Sim_biol_2015 <- data %>%
-      mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece),F1=NA) %>% #ajout
-      filter(Essence_billon %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
+      #mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece),F1=NA) %>% #ajout
+      #filter(Essence_billon %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
       rename(Vig1234 = vigu0,
              Prod1234 = prod0) %>%
       left_join(par_vig, by=c("Essence_billon", "Vig1234"), relationship="many-to-many") %>%
@@ -195,39 +167,11 @@ ABCD_DHP215<- function (data, type){
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
-    if(!"F1" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F1=NA)
-    }
-    if(!"DER" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
-    }
 
-    if(!"F2" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F2=NA)
-    }
-
-    if(!"F3" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F3=NA)
-    }
-    if(!"F4" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F4=NA)
-    }
-    if(!"P" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(P=NA)
-    }
 
   }else if (type == "MSCR"){
 
-
-
-
-      CovParaPetro_mscr<-CovParaPetro_mscr%>%
+    CovParaPetro_mscr<-CovParaPetro_mscr%>%
         filter(Cov>0)
 
     Vol_Billon<-ParaPetro_mscr %>%
@@ -268,8 +212,9 @@ ABCD_DHP215<- function (data, type){
       left_join(ListeCorresPetro, by = c("Espece"="Essence_billon", "MSCR"="VAL_INIT"))
 
     Sim_biol_2015 <- data %>%
-      mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece),PrioriteMSCR=VAL_FIN,F1=NA) %>% #ajout, IA: mais il y a un filtre dans la fct de base qui filtre CHX, il n'y aura donc jamais de CHR
-      filter(Essence_billon %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
+      #mutate(Essence_billon=ifelse(Espece=="CHR", "CHX", Espece),PrioriteMSCR=VAL_FIN,F1=NA) %>% #ajout, IA: mais il y a un filtre dans la fct de base qui filtre CHX, il n'y aura donc jamais de CHR
+      mutate(PrioriteMSCR=VAL_FIN) %>%
+      #filter(Essence_billon %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX")) %>%
       left_join(par_qual, by=c("Essence_billon", "PrioriteMSCR"), relationship="many-to-many") %>%
       left_join(par_num, by=c("Essence_billon", "Produit"), relationship="many-to-many") %>%
       inner_join(CovParaPetro_mscr, by=c("Essence_billon", "Produit")) %>%
@@ -286,42 +231,14 @@ ABCD_DHP215<- function (data, type){
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
-    if(!"F1" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F1=NA)
-    }
-    if(!"DER" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
-    }
-
-    if(!"F2" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F2=NA)
-    }
-
-    if(!"F3" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F3=NA)
-    }
-    if(!"F4" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F4=NA)
-    }
-    if(!"P" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(P=NA)
-    }
 
 
   }else if (type == "DHP2015"){
 
     Para<-ParaPetroFinal
 
-
     CovParms<-CovParmPetro %>%
       filter(Cov>0)
-
 
 
     Vol_Billon<-Para %>%
@@ -346,8 +263,8 @@ ABCD_DHP215<- function (data, type){
     ##########################################################
 
     Sim_biol_2015<-data %>%
-      mutate(Essence_billon=ifelse(is.na(Espece)==TRUE, GrEspece, Espece),F1=NA) %>% # pour les recrues? pourquoi il n'y a pas ça dans les cas ABCD, MSCR et 1234? est-ce que GrEspece sera dans tous les modèles où Billonage sera utilisé
-      filter(Essence_billon %in% c("BOJ","ERS","BOP","ERR","CHX","HEG")) %>%
+      #mutate(Essence_billon=ifelse(is.na(Espece)==TRUE, GrEspece, Espece),F1=NA) %>% # pour les recrues? pourquoi il n'y a pas ça dans les cas ABCD, MSCR et 1234? est-ce que GrEspece sera dans tous les modèles où Billonage sera utilisé
+      #filter(Essence_billon %in% c("BOJ","ERS","BOP","ERR","CHX","HEG")) %>%
       left_join(Pres_Billon, by=c("Essence_billon"), relationship="many-to-many") %>%
       inner_join(CovParms, by=c("Essence_billon", "Produit")) %>%
       mutate(Cov=ifelse(is.na(Cov)==TRUE,0,Cov)) %>%
@@ -361,33 +278,34 @@ ABCD_DHP215<- function (data, type){
       select(Produit,VolBillonM3,bilonID,type) %>%
       pivot_wider(names_from = Produit, values_from = VolBillonM3)
 
-    if(!"F1" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F1=NA)
-    }
-    if(!"DER" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(DER=NA)
-    }
+  }
 
-    if(!"F2" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F2=NA)
-    }
 
-    if(!"F3" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F3=NA)
-    }
-    if(!"F4" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(F4=NA)
-    }
-    if(!"P" %in% names(Sim_biol_2015)){
-      Sim_biol_2015 <-Sim_biol_2015 %>%
-        mutate(P=NA)
-    }
+  if(!"F1" %in% names(Sim_biol_2015)){
+    Sim_biol_2015 <-Sim_biol_2015 %>%
+      mutate(F1=NA)
+  }
+  if(!"DER" %in% names(Sim_biol_2015)){
+    Sim_biol_2015 <-Sim_biol_2015 %>%
+      mutate(DER=NA)
+  }
 
+  if(!"F2" %in% names(Sim_biol_2015)){
+    Sim_biol_2015 <-Sim_biol_2015 %>%
+      mutate(F2=NA)
+  }
+
+  if(!"F3" %in% names(Sim_biol_2015)){
+    Sim_biol_2015 <-Sim_biol_2015 %>%
+      mutate(F3=NA)
+  }
+  if(!"F4" %in% names(Sim_biol_2015)){
+    Sim_biol_2015 <-Sim_biol_2015 %>%
+      mutate(F4=NA)
+  }
+  if(!"P" %in% names(Sim_biol_2015)){
+    Sim_biol_2015 <-Sim_biol_2015 %>%
+      mutate(P=NA)
   }
 
 

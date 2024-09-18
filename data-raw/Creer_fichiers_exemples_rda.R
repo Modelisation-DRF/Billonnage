@@ -2,7 +2,7 @@
 
 
 liste_arbres_ex <- data.frame(Placette=1, reg_eco="2a",
-                              Espece=c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX"),
+                              Espece=c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHR"),
                               DHPcm=c(24,25,26,27,28,29),
                               vigu0=c("ViG","ViG","ViG","NONVIG","NONVIG","NONVIG"),
                               prod0=c("sciage","pate","sciage","pate","sciage","pate"),

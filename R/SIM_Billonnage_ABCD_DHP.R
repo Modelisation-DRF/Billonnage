@@ -10,7 +10,7 @@
 #'             Pour type=MSCR, il faut aussi une colonne MSCR
 #'             Pour type=1234, il faut aussi les colonnes prod0 et vigu0
 #'             Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront supprimés
-#'             Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX", les autres seront supprimés
+#'             Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR", les autres seront supprimés
 #' @param type "DHP" pour utiliser les équations régionalisées basées seulement sur le DHP
 #'             "ABCD" pour utiliser les équations régionalisées basées sur ABCD
 #'             "1234" pour utiliser les équations de 2015 basées sur 1234
@@ -18,7 +18,7 @@
 #'             "DHP2015" pour utiliser les équations de 2015 basées seulement sur le DHP
 #'             "ABCD2015" pour utiliser les équations de 2015 basées sur ABCD
 #' @return Retourne un dataframe avec l'estimation du volume par classe de produit
-#'          pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX" pour Petro2015 et ERS/BOJ pour Petro2024
+#'          pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR" pour Petro2015 et ERS/BOJ pour Petro2024
 #' @examples
 #' vol_billon <- SIMBillonnageABCD_DHP(Data=liste_arbres_ex, type="ABCD")
 #' @export
@@ -31,7 +31,7 @@ SIMBillonnageABCD_DHP<- function (Data , type){
   Data<- Data %>% filter(DHPcm >23) %>%
     mutate(type =NA)
 
-  data<- Data %>% filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHX") ) # CHX? on veut mettre ça ici? plutôt faire un regoupement?
+  data<- Data %>% filter(Espece %in% c("ERS", "BOJ", "ERR", "BOP", "HEG", "CHR") )
 
   if (nrow(data) == 0) {
 
