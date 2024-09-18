@@ -12,7 +12,7 @@ ABCD_DHP215(data, type)
 les rendements en produit à l'aide du module de billonnage Petro 2015.
 Le dataframe doit contenir une colonne bilonID qui numérote individuellement chacune des lignes.
 Doit contenir aussi les colonnes DHPcm et Espece, et optionnelement MSCR ou ABCD ou vigu0 et prod0.
-Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX", les autres seront supprimés
+Les équations ne s'appliquent qu'aux espèces: "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR", les autres seront supprimés
 Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront supprimés}
 
 \item{type}{"ABCD2015" pour utiliser les équations basées sur ABCD
@@ -22,7 +22,7 @@ Les équations ne s'appliquent qu'aux arbres avec un dhp>23, les autres seront s
 }
 \value{
 Retourne un dataframe avec l'estimation du volume par classe de produit
-         pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHX" de 23 cm,
+         pour chacun des arbres "ERS", "BOJ", "ERR", "BOP", "HEG", "CHR" de 23 cm,
          colonnes: bilonID, type, F1, F2, F3, F4, P, DER
 }
 \description{
