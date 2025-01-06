@@ -1,7 +1,7 @@
 Package: Billonage
 Type: Package
 Title: Équations de billonnage PETRO
-Version: 0.1.0
+Version: 1.0.0
 Author: c(
     person("Junior", "Peumi", email = "junior.peumi@mrnf.gouv.qc.ca", role = c("aut", "cre")),
     person("Isabelle", "Auger", email = "isabelle.auger@mrnf.gouv.qc.ca", role = c("ctb")))
@@ -11,10 +11,10 @@ Description: Équations pour estimer le volume des produits PETRO de 6 essences 
 License: LGPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: dplyr,
-         tidyverse,
-         R (>= 2.10)
-Suggests: 
-    testthat (>= 3.0.0)
+Depends: R (>= 2.10)
+Imports:
+    dplyr,
+    tidyverse
+Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
