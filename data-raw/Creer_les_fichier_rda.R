@@ -12,53 +12,66 @@
 #library(sas7bdat)
 
 
+
+CovParaPetro_1234 <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\1234\\CovParaPetro_1234.csv", delim = ';') #%>%
+ # mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(CovParaPetro_1234, "data-raw\\fichiers_parametres\\Petro2015\\1234\\CovParaPetro_1234.csv", delim = ';')
-CovParaPetro_1234 <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\1234\\CovParaPetro_1234.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
+
+CovParaPetro_abcd <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\ABCD\\CovParaPetro_abcd.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(CovParaPetro_abcd, "data-raw\\fichiers_parametres\\Petro2015\\ABCD\\CovParaPetro_abcd.csv", delim = ';')
-CovParaPetro_abcd <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\ABCD\\CovParaPetro_abcd.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
+
+CovParaPetro_mscr <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\MSCR\\CovParaPetro_mscr.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(CovParaPetro_mscr, "data-raw\\fichiers_parametres\\Petro2015\\MSCR\\CovParaPetro_mscr.csv", delim = ';')
-CovParaPetro_mscr <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\MSCR\\CovParaPetro_mscr.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
+
+CovParmPetro <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\DHP\\CovParmPetro.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(CovParmPetro, "data-raw\\fichiers_parametres\\Petro2015\\DHP\\CovParmPetro.csv", delim = ';')
-CovParmPetro <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\DHP\\CovParmPetro.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
-#write_delim(CovParmPetro_DHP, "data-raw\\fichiers_parametres\\Petro2024\\DHP\\CovParmPetro_DHP.csv", delim = ';')
+
 CovParmPetro_DHP <- read_delim("data-raw\\fichiers_parametres\\Petro2024\\DHP\\CovParmPetro_DHP.csv", delim = ';')
+#write_delim(CovParmPetro_DHP, "data-raw\\fichiers_parametres\\Petro2024\\DHP\\CovParmPetro_DHP.csv", delim = ';')
 
-#write_delim(CovParmPetroABCD, "data-raw\\fichiers_parametres\\Petro2024\\ABCD\\CovParmPetroABCD.csv", delim = ';')
+
 CovParmPetroABCD <- read_delim("data-raw\\fichiers_parametres\\Petro2024\\ABCD\\CovParmPetroABCD.csv", delim = ';')
+#write_delim(CovParmPetroABCD, "data-raw\\fichiers_parametres\\Petro2024\\ABCD\\CovParmPetroABCD.csv", delim = ';')
 
+
+ParaPetro_1234_ <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\1234\\ParaPetro_1234_.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(ParaPetro_1234_, "data-raw\\fichiers_parametres\\Petro2015\\1234\\ParaPetro_1234_.csv", delim = ';')
-ParaPetro_1234_ <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\1234\\ParaPetro_1234_.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
+
+ParaPetro_abcd <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\ABCD\\ParaPetro_abcd.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(ParaPetro_abcd, "data-raw\\fichiers_parametres\\Petro2015\\ABCD\\ParaPetro_abcd.csv", delim = ';')
-ParaPetro_abcd <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\ABCD\\ParaPetro_abcd.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
+
+ParaPetro_mscr <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\MSCR\\ParaPetro_mscr.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(ParaPetro_mscr, "data-raw\\fichiers_parametres\\Petro2015\\MSCR\\ParaPetro_mscr.csv", delim = ';')
-ParaPetro_mscr <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\MSCR\\ParaPetro_mscr.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
+
+ParaPetroFinal <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\DHP\\ParaPetroFinal.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(ParaPetroFinal, "data-raw\\fichiers_parametres\\Petro2015\\DHP\\ParaPetroFinal.csv", delim = ';')
-ParaPetroFinal <- read_delim("data-raw\\fichiers_parametres\\Petro2015\\DHP\\ParaPetroFinal.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
-#write_delim(ParaPetroFinal_dhp, "data-raw\\fichiers_parametres\\Petro2024\\DHP\\ParaPetroFinal_dhp.csv", delim = ';')
+
 ParaPetroFinal_dhp <- read_delim("data-raw\\fichiers_parametres\\Petro2024\\DHP\\ParaPetroFinal_dhp.csv", delim = ';')
+#write_delim(ParaPetroFinal_dhp, "data-raw\\fichiers_parametres\\Petro2024\\DHP\\ParaPetroFinal_dhp.csv", delim = ';')
 
-#write_delim(ParaPetroFinal_New, "data-raw\\fichiers_parametres\\Petro2024\\ABCD\\ParaPetroFinal_New.csv", delim = ';')
+
 ParaPetroFinal_New <- read_delim("data-raw\\fichiers_parametres\\Petro2024\\ABCD\\ParaPetroFinal_New.csv", delim = ';')
+#write_delim(ParaPetroFinal_New, "data-raw\\fichiers_parametres\\Petro2024\\ABCD\\ParaPetroFinal_New.csv", delim = ';')
 
+
+ListeCorresPetro <- read_delim("data-raw\\fichiers_parametres\\ListeCorresPetro.csv", delim = ';') #%>%
+  #mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 #write_delim(ListeCorresPetro, "data-raw\\fichiers_parametres\\ListeCorresPetro.csv", delim = ';')
-ListeCorresPetro <- read_delim("data-raw\\fichiers_parametres\\ListeCorresPetro.csv", delim = ';') %>%
-  mutate(Essence_billon = ifelse(Essence_billon=='CHX', 'CHR', Essence_billon))
 
 #write_delim(RegEcoPetro, "data-raw\\fichiers_non_utilises\\RegEcoPetro.csv", delim = ';')
 
