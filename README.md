@@ -26,4 +26,5 @@ install_github("https://github.com/Modelisation-DRF/Billonage", ref="main", auth
 ## Historique des versions
 | Date |  Version  | Issues |      Détails     |
 |:-----|:---------:|:-------|:-----------------|
+| 2025-09-24 |	0.1.3 |		Ménage dans Imports et ajout package.R |
 | 2024-09-12 |	0.1.0 |		Version stable |

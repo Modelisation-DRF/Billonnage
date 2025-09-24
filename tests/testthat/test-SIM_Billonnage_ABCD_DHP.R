@@ -57,3 +57,4 @@ test_that("Test de la fonction SIMBillonnageABCD_DHP() avec ABCD sans eco", {
   expect_no_error(SIMBillonnageABCD_DHP(Data=fic_intrant, type="ABCD"))
 
 })
+
