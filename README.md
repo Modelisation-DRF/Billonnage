@@ -19,8 +19,8 @@ Aucune dépendences externes
 
 ## Comment installer le package dans R
 ```{r eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
-require(remotes)
-install_github("https://github.com/Modelisation-DRF/Billonage", ref="main", auth_token = "demander_un_token")
+library(remotes)
+remotes::install_github("Modelisation-DRF/Billonage")
 ```
 
 ## Historique des versions
